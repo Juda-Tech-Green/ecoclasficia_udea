@@ -13,7 +13,7 @@ El juego simula un entorno donde el jugador debe clasificar residuos (orgánicos
 - **Progreso**: Se muestra el porcentaje de clasificación correcta al finalizar el nivel.
 
 ## Vista Previa
-![Vista Previa del Juego](publicimages/preview.PNG)
+![Vista Previa del Juego](public/images/preview.PNG)
 
 ## Instalación
 1. Clona el repositorio:
