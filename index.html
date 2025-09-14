@@ -31,15 +31,12 @@
 
         <!-- HUD -->
         <div class="hud">
-            <div class="nivel">
-                <h1>Nivel: 1</h1>
-            </div>
 
             <div class="health_container">
-                <h2>100 %</h2>
+                <h2>Residuos faltantes: 30</h2>
             </div>
 
-                       <a href="/" class="button">Volver</a>
+            <a href="/" class="button"><h5>Volver</h5></a>
 
 
 
@@ -81,17 +78,37 @@
                     </div>
                 </div>
             </div>
+            <div class="col-12 text-center">
+                    <p class="mb-0">Con 💚 por <a class="text-white" target="_blanks" href="https://github.com/Juda-Tech-Green">JuDa 🐿️</a></p>
+                </div>
         </div>
     </div>
+
+    
+    <!-- Modal de fin de juego (Bootstrap) -->
+    <div class="modal fade" id="end-modal" tabindex="-1" aria-labelledby="end-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="end-modal-label">¡Fin del Juego!</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <p id="end-message">Lograste clasificar el <span id="percentage">0</span>% de los residuos.</p>
+                    <button class="btn btn-success" onclick="location.reload()">Jugar de nuevo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sonidos -->
+    <audio id="success-sound" src="sounds/success.mp3" preload="auto"></audio>
+    <audio id="wrong-sound" src="sounds/wrong.mp3" preload="auto"></audio>
+    <audio id="pop-sound" src="sounds/pop.mp3" preload="auto"></audio>
+
 </body>
 <script src="/app.js"></script>
-
-<!-- Sonidos -->
-<audio id="success-sound" src="sounds/success.mp3" preload="auto"></audio>
-<audio id="wrong-sound" src="sounds/wrong.mp3" preload="auto"></audio>
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>

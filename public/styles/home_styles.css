@@ -11,6 +11,7 @@
     --success: var(--primary-green);
 }
 
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: var(--light-bg);
@@ -19,6 +20,7 @@ body {
 .hero-section {
     background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
     color: var(--white);
+    
 }
 
 .hero-content h1 {
