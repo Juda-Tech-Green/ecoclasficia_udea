@@ -1,0 +1,224 @@
+/*   background: url('../images/monumento-bg.jpeg') no-repeat center center;*/
+/* Contenedor principal */
+.viewport {
+    display: flex;
+    flex-direction: row;
+    /* HUD a la derecha */
+    height: 100vh;
+    width: 100%;
+}
+
+/* HUD marrón ocupa todo el sobrante */
+.hud {
+    flex: 0 0 25%;
+    /* ocupa el 25% de la pantalla (ajustable) */
+    max-width: 400px;
+    /* ancho máximo para no ser gigante */
+    min-width: 250px;
+    /* ancho mínimo para no romper en pantallas pequeñas */
+    height: 100vh;
+    background-color: #5e4d3b;
+    color: #fff;
+    padding: 20px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+/* Nivel y porcentaje */
+.nivel h1 {
+    font-size: 22px;
+    margin: 10px 0 5px 0;
+    text-align: center;
+    color: #e8f9f5;
+}
+
+.health_container {
+    text-align: center;
+    background-color: #4c8444;
+    border-radius: 50px;
+    padding: 10px;
+    margin: 15px auto;
+    width: 220px;
+}
+
+.health_container h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Recuadro blanco con canecas */
+.cans {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    margin: auto 0;
+
+    height: 60%;
+    /* 👈 hace que el recuadro blanco ocupe el 60% del HUD */
+}
+
+
+/* Cada caneca */
+.cans div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cans img {
+    width: 60px;
+    height: auto;
+}
+
+/* Botones debajo de canecas */
+.button {
+    margin-top: 5px;
+    background-color: #959e54;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.button h6 {
+    margin: 0;
+}
+
+/* Zona de juego ocupa el resto */
+.game_view {
+    flex: 1;
+    /* todo lo que queda */
+    position: relative;
+    background: url('../images/monumento-bg.jpeg') no-repeat center center;
+    background-size: contain;
+    background-color: #e8f9f5;
+    overflow: hidden;
+}
+
+/* Jugador */
+.player {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.player img {
+    width: 220px;
+    transition: transform 0.2s ease;
+    transform: scaleX(1); /* 👈 arranque mirando derecha */
+    /* animación suave */
+}
+
+.player.flipped img {
+    transform: scaleX(-1);
+    /* efecto espejo horizontal */
+}
+
+/* Contenedor de la barra (posicionada sobre la caneca) */
+/* Contenedor general de cada caneca */
+.cans div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* 👈 centra todo horizontalmente */
+}
+
+/* Barra de llenado vertical centrada, sobre la caneca */
+.fill_bar {
+    width: 35px;
+    /* grosor de la barra */
+    height: 150px;
+    /* altura total de la barra */
+    margin-bottom: 12px;
+    /* espacio entre la barra y la caneca */
+    display: flex;
+    flex-direction: column-reverse;
+    /* llenado empieza desde abajo */
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #ccc;
+    /* gris como fondo visible */
+}
+
+/* Verde y rojo empiezan ocultos */
+
+.bar.wrong {
+    width: 100%;
+    height: 0;
+    /* inician vacías */
+    transition: height 0.3s ease;
+}
+
+.bar.correct {
+    background-color: #4c8444;
+    /* verde */
+}
+
+.bar.wrong {
+    background-color: #c0392b;
+    /* rojo */
+}
+
+/* sticky can: posicion absoluta dentro de .game_view */
+.sticky_can {
+  position: absolute;
+  bottom: 30px;                 /* ajusta verticalmente para "pegarla" al jugador */
+  z-index: 20;
+  pointer-events: none;         /* para que no capte clicks/ratón */
+  transition: transform 0.08s linear; /* transform para flip suave */
+  transform: scaleX(-1); /* 👈 arranque mirando derecha */
+}
+
+/* la imagen de la caneca */
+#active-can {
+  width: 130px;                  /* ajusta tamaño */
+  height: auto;
+  
+}
+
+
+
+
+/* -------------------------------
+   🔹 Responsive - HUD abajo en móvil
+   ------------------------------- */
+@media (max-width: 768px) {
+    .viewport {
+        flex-direction: column;
+        /* HUD pasa abajo */
+    }
+
+    .hud {
+        width: 100%;
+        height: auto;
+        /* ya no ocupa todo el alto */
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: flex-start;
+        border-top: 3px solid #232b1b;
+    }
+
+    .cans {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .cans img {
+        width: 50px;
+    }
+}

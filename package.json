@@ -1,0 +1,20 @@
+{
+  "name": "ecoclasifica_udea",
+  "version": "1.0.0",
+  "description": "recreacion educativo de clasificacion de residuos",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "JuDa",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.12.1",
+    "body-parser": "^2.2.0",
+    "dotenv": "^17.2.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "lodash": "^4.17.21"
+  }
+}
