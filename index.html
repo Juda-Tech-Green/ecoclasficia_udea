@@ -13,93 +13,85 @@
 
 <body>
     <div class="viewport">
-
-        <!-- Zona del juego -->
+        <!-- Área de juego -->
         <div class="game_view">
+            <!-- Contenedor para residuos que caen -->
+            <div class="waste-container"></div>
+
+            <!-- Jugador -->
             <div class="player">
-                <img src="/images/player.png" alt="Jugador">
+                <img src="images/player.png" alt="Jugador">
             </div>
 
-            <!-- <-- caneca STICKY independiente -->
+            <!-- Caneca sticky -->
             <div class="sticky_can">
-                <img id="active-can" src="/images/green-trash-bin.png" alt="Caneca activa">
+                <img id="active-can" src="images/green-trash-bin.png" alt="Caneca activa">
             </div>
         </div>
 
-        <!-- HUD a la derecha -->
+        <!-- HUD -->
         <div class="hud">
             <div class="nivel">
                 <h1>Nivel: 1</h1>
-                <h1>Residuos faltantes: 20</h1>
-                <form action="/" method="get" class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-light">Inicio</button>
-                </form>
-                <div class="health_container">
-                    <h2>100 %</h2>
-
-                </div>
             </div>
 
-            <!-- Canecas dentro del recuadro blanco -->
+            <div class="health_container">
+                <h2>100 %</h2>
+            </div>
+
+                       <a href="/" class="button">Volver</a>
+
+
+
+            <!-- Recuadro de canecas con barras -->
             <div class="cans">
-                <div class="1_organico">
-                    <!-- Barra de llenado arriba -->
+                <!-- Caneca 1: Verde (Orgánicos) -->
+                <div class="caneca-organic">
                     <div class="fill_bar">
-                        <div class="bar empty"></div> <!-- gris visible -->
-                        <div class="bar correct"></div> <!-- verde oculta -->
-                        <div class="bar wrong"></div> <!-- rojo oculta -->
+                        <div class="bar correct bar-correct-organic" style="height: 0%;"></div>
+                        <div class="bar wrong bar-wrong-organic" style="height: 0%;"></div>
                     </div>
-
-                    <!-- Imagen de la caneca -->
-                    <div class="bin">
-                        <img src="/images/green-trash-bin.png" alt="Caneca orgánico">
-                    </div>
-
+                    <img src="images/green-trash-bin.png" alt="Caneca Verde">
                     <div class="button">
                         <h6>1</h6>
                     </div>
                 </div>
-                <div class="2_reciclable">
-                    <!-- Barra de llenado arriba -->
+
+                <!-- Caneca 2: Blanco (Reciclables) -->
+                <div class="caneca-reciclables">
                     <div class="fill_bar">
-                        <div class="bar empty"></div> <!-- gris visible -->
-                        <div class="bar correct"></div> <!-- verde oculta -->
-                        <div class="bar wrong"></div> <!-- rojo oculta -->
+                        <div class="bar correct bar-correct-reciclables" style="height: 0%;"></div>
+                        <div class="bar wrong bar-wrong-reciclables" style="height: 0%;"></div>
                     </div>
-
-                    <!-- Imagen de la caneca -->
-                    <div class="bin">
-                        <img src="/images/white-trash-bin.png" alt="Caneca orgánico">
-                    </div>
-
+                    <img src="images/white-trash-bin.png" alt="Caneca Blanca">
                     <div class="button">
                         <h6>2</h6>
                     </div>
                 </div>
-                <div class="3_no_reciclable">
-                    <!-- Barra de llenado arriba -->
+
+                <!-- Caneca 3: Negro (No Reciclables) -->
+                <div class="caneca-no-reciclables">
                     <div class="fill_bar">
-                        <div class="bar empty"></div> <!-- gris visible -->
-                        <div class="bar correct"></div> <!-- verde oculta -->
-                        <div class="bar wrong"></div> <!-- rojo oculta -->
+                        <div class="bar correct bar-correct-no-reciclables" style="height: 0%;"></div>
+                        <div class="bar wrong bar-wrong-no-reciclables" style="height: 0%;"></div>
                     </div>
-
-                    <!-- Imagen de la caneca -->
-                    <div class="bin">
-                        <img src="/images/black-trash-bin.png" alt="Caneca orgánico">
-                    </div>
-
+                    <img src="images/black-trash-bin.png" alt="Caneca Negra">
                     <div class="button">
                         <h6>3</h6>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
 </body>
 <script src="/app.js"></script>
+
+<!-- Sonidos -->
+<audio id="success-sound" src="sounds/success.mp3" preload="auto"></audio>
+<audio id="wrong-sound" src="sounds/wrong.mp3" preload="auto"></audio>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
     crossorigin="anonymous"></script>

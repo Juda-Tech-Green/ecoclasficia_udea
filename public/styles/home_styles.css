@@ -1,0 +1,84 @@
+/* home-styles.css */
+
+/* Paleta de colores basada en la imagen suministrada: Verdes (#4c8444, #959e54), Marrones (#5e4d3b), Blancos/Grises (#e8f9f5, #fff), Negros (#000) */
+:root {
+    --primary-green: #b1e0fa;
+    --secondary-green: #e8f9f5;
+    --brown: #5e4d3b;
+    --light-bg: #e8f9f5;
+    --white: #fff;
+    --dark: #000;
+    --success: var(--primary-green);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--light-bg);
+}
+
+.hero-section {
+    background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
+    color: var(--white);
+}
+
+.hero-content h1 {
+    color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-image img {
+    border: 3px solid var(--white);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.game-logic-section h2 {
+    color: var(--success);
+}
+
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(76, 132, 68, 0.3);
+}
+
+.definitions-section h2 {
+    color: var(--brown);
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.alert-info {
+    background-color: var(--secondary-green);
+    border-color: var(--primary-green);
+    color: var(--white);
+}
+
+.eco-lab-challenge h2 {
+    color: var(--success);
+}
+
+.alert{
+      background: linear-gradient(to right, var(--primary-green), var(--secondary-green));
+    color: var(--dark);
+}
+.footer {
+    background-color: var(--dark) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section .row {
+        text-align: center;
+    }
+    .hero-image {
+        margin-top: 2rem;
+    }
+    .eco-lab-challenge .row .col-md-6 {
+        margin-bottom: 1rem;
+    }
+}

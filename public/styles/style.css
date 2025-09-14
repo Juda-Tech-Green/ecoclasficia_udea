@@ -104,9 +104,54 @@
     /* todo lo que queda */
     position: relative;
     background: url('../images/monumento-bg.jpeg') no-repeat center center;
-    background-size: contain;
+    background-size: cover;
     background-color: #e8f9f5;
     overflow: hidden;
+}
+
+/* Contenedor para residuos que caen */
+.waste-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* No interfiere con controles */
+    z-index: 5; /* Por encima del fondo, debajo del jugador */
+}
+
+/* Estilo para cada residuo que cae */
+.waste-item {
+    position: absolute;
+    width: 60px; /* Tamaño uniforme para sprites */
+    height: auto;
+    animation: fall 3.5s linear forwards, rotate 4s linear infinite; /* Caída + rotación */
+    z-index: 6;
+}
+
+/* Animación de caída: de arriba (fuera de vista) a abajo */
+@keyframes fall {
+    0% {
+        top: -60px; /* Empieza arriba, oculto */
+        opacity: 0;
+    }
+    10% {
+        opacity: 50; /* Fade in rápido */
+    }
+    100% {
+        top: 100vh; /* Llega al fondo, oculto */
+        opacity: 0; /* Fade out */
+    }
+}
+
+/* Nueva animación de rotación lenta */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Jugador */
@@ -115,6 +160,7 @@
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 15;
 }
 
 .player img {
@@ -141,39 +187,42 @@
 /* Barra de llenado vertical centrada, sobre la caneca */
 .fill_bar {
     width: 35px;
-    /* grosor de la barra */
     height: 150px;
-    /* altura total de la barra */
     margin-bottom: 12px;
-    /* espacio entre la barra y la caneca */
     display: flex;
     flex-direction: column-reverse;
-    /* llenado empieza desde abajo */
     border-radius: 5px;
     overflow: hidden;
-    background-color: #ccc;
-    /* gris como fondo visible */
+    background-color: #ccc; /* Gris como fondo total */
+    position: relative;
 }
 
-/* Verde y rojo empiezan ocultos */
+.fill_bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.1); /* Overlay sutil para total gris */
+    z-index: 1;
+}
 
-.bar.wrong {
-    width: 100%;
-    height: 0;
-    /* inician vacías */
+/* Barras correct/wrong */
+.bar {
+    position: relative;
+    z-index: 2;
     transition: height 0.3s ease;
+    width: 100%;
 }
 
 .bar.correct {
-    background-color: #4c8444;
-    /* verde */
+    background-color: #4c8444; /* Verde */
 }
 
 .bar.wrong {
-    background-color: #c0392b;
-    /* rojo */
+    background-color: #c0392b; /* Rojo */
 }
-
 /* sticky can: posicion absoluta dentro de .game_view */
 .sticky_can {
   position: absolute;
@@ -194,19 +243,15 @@
 
 
 
-/* -------------------------------
-   🔹 Responsive - HUD abajo en móvil
-   ------------------------------- */
+/* Responsive - HUD abajo en móvil */
 @media (max-width: 768px) {
     .viewport {
         flex-direction: column;
-        /* HUD pasa abajo */
     }
 
     .hud {
         width: 100%;
         height: auto;
-        /* ya no ocupa todo el alto */
         flex-direction: row;
         justify-content: space-around;
         align-items: flex-start;
@@ -220,5 +265,9 @@
 
     .cans img {
         width: 50px;
+    }
+
+    .waste-item {
+        width: 40px; /* Más pequeño en móvil */
     }
 }
