@@ -16,7 +16,7 @@
     min-width: 250px;
     /* ancho mínimo para no romper en pantallas pequeñas */
     height: 100vh;
-    background-color: #5e4d3b;
+    background-image: url("data:image/svg+xml,<svg id='patternId' width='100%' height='100%' xmlns='http://www.w3.org/2000/svg'><defs><pattern id='a' patternUnits='userSpaceOnUse' width='30' height='30' patternTransform='scale(2) rotate(0)'><rect x='0' y='0' width='100%' height='100%' fill='%235e4d3bff'/><path d='M0 22.5h30v15H0zm15-15h30v15H15m-30-15h30v15h-30zm15-15h30v15H0z'  stroke-width='1' stroke='%23e8f9f5ff' fill='none'/></pattern></defs><rect width='800%' height='800%' transform='translate(0,0)' fill='url(%23a)'/></svg>");
     color: #fff;
     padding: 20px;
     box-sizing: border-box;
@@ -25,7 +25,7 @@
     flex-direction: column;
     justify-content: flex-start;
     gap: 20px;
-    z-index: 10; /* Menor que el z-index de .waste-item */
+    
 }
 
 /* Nivel y porcentaje */
@@ -42,13 +42,13 @@
     border-radius: 50px;
     padding: 10px;
     margin: 15px auto;
-    width: 220px;
+    width: 250px;
 }
 
 .health_container h2 {
     margin: 0;
     color: #fff;
-    font-size: 20px;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -66,7 +66,7 @@
     box-sizing: border-box;
     margin: auto 0;
 
-    height: 60%;
+    height: 40%;
     /* 👈 hace que el recuadro blanco ocupe el 60% del HUD */
 }
 
@@ -130,6 +130,50 @@
     }
 }
 
+/* Nuevo contenedor para el llenado desde abajo */
+.fill-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-image: url('../images/relleno.jpg'); 
+    background-size: cover;
+    background-repeat: repeat;
+    height: 0; /* Comienza en 0% y crecerá */
+    z-index: 5; /* Debajo del jugador (z-index 15) pero visible */
+    transition: height 0.5s ease; /* Transición suave del llenado */
+}
+
+/*  Linea que indica el límite máximo de residuos en el suelo */
+.limit-line {
+    position: absolute;
+    top: 70%; /* 100% - 30% = 70% desde el borde superior */
+    left: 0;
+    width: 100%;
+    height: 5px; /* Grosor de la línea */
+    background-color: red; /* Color rojo */
+    z-index: 10; /* Sobre el fill-overlay pero debajo del jugador */
+    border: none; /* Elimina el borde predeterminado de <hr> */
+}
+
+
+/* Warning de ya no pueden caer más residuos */
+.warning-popup {
+    position: absolute;
+    font-size: 24px; /* Tamaño del texto */
+    font-weight: bold;
+    color: #c0392b; /* Color rojo para advertencia */
+    text-align: center;
+    width: 200px; /* Ancho fijo para centrar mejor */
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semitransparente */
+    border-radius: 5px;
+    z-index: 30; /* Sobre todo, como los emoticonos */
+    opacity: 1;
+    transition: opacity 0.5s ease; /* Transición suave para desaparecer */
+    pointer-events: none; /* No interfiere con clics */
+}
+
 /* Contenedor para residuos que caen */
 .waste-container {
     position: absolute;
@@ -138,13 +182,13 @@
     width: 100%;
     height: 100%;
     pointer-events: none; /* No interfiere con controles */
-    z-index: 40; /* Por encima del fondo, debajo del jugador */
+    z-index: 41; /* Por encima del fondo, debajo del jugador */
 }
 
 /* Estilo para cada residuo que cae */
 .waste-item {
     position: absolute;
-    width: 180px; /* Tamaño uniforme para sprites */
+    width: 150px; /* Tamaño uniforme para sprites */
     height: auto;
     animation: fall 3.5s linear forwards, rotate 4s linear infinite; /* Caída + rotación */
     z-index: 40;
