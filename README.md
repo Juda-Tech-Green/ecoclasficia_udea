@@ -23,10 +23,15 @@ El juego simula un entorno donde el jugador debe clasificar residuos (orgánicos
 
 2. Navega al directorio:
     ```bash
-    cd ecoclasifica-udea-juego
+    cd ecoclasifica_udea
     ```
 
-3. Ve a http://localhost:3000/
+3. Inicia el servidor:
+    ```bash
+    node server.js
+    ```
+
+4. Ve a http://localhost:3000/
 
 ## Uso
 
