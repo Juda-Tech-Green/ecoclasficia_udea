@@ -113,7 +113,7 @@
 .game_view {
     flex: 1;
     position: relative;
-    background: url('../images/monumento-bg.jpeg') no-repeat center center;
+    background: url('/public/images/monumento-bg.jpeg') no-repeat center center;
     background-size: cover;
     background-color: #e8f9f5;
     overflow: hidden;
@@ -136,7 +136,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background-image: url('../images/relleno.jpg'); 
+    background-image: url('/public/images/relleno.jpg'); 
     background-size: cover;
     background-repeat: repeat;
     height: 0; /* Comienza en 0% y crecerá */
