@@ -9,17 +9,12 @@ app.use(express.static("public"));
 
 // Redirige la raíz (/) a home.html
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/home.html');
+    res.sendFile(__dirname + '/home.html');
 });
 
 // Redirige /juego a index.html
 app.get('/juego', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-});
-
-// Ruta comodín para manejar cualquier otra solicitud no encontrada
-app.get('*', (req, res) => {
-    res.status(404).sendFile(__dirname + '/public/404.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.listen(port, () => {
