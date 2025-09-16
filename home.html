@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/juego" class="btn btn-success btn-lg">¡Ir a la demo!</a>
+                        <a href="/juego" id="demo-btn" class="btn btn-success btn-lg">¡Ir a la demo!</a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -71,7 +71,8 @@
                         <div class="card-body text-center">
                             <h5 class="card-title text-success">Clasificación Correcta</h5>
                             <p class="card-text">Clasifica correctamente para llenar la barra verde y avanzar niveles.
-                                Errores llenan la barra roja, reduciendo tu progreso. ¡Objetivo: Clasificar 30 residuos!</p>
+                                Errores llenan la barra roja, reduciendo tu progreso. ¡Objetivo: Clasificar 30 residuos!
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -151,6 +152,22 @@
         </div>
     </footer>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const demoBtn = document.getElementById("demo-btn");
+
+            if (demoBtn) {
+                demoBtn.addEventListener("click", function (e) {
+                    const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+
+                    if (isMobile) {
+                        e.preventDefault(); // evita que se abra /juego
+                        alert("Para poder jugar debes estar desde un PC de escritorio");
+                    }
+                });
+            }
+        });
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
