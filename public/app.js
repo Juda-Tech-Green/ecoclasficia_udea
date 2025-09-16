@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // INPUT / VELOCIDAD
     const keys = { left: false, right: false };
-    const moveSpeed = 3;
+    const moveSpeed = 3.3;
 
     // FACING y offsets
     let facing = "right";

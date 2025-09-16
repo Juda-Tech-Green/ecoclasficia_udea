@@ -188,7 +188,7 @@
 /* Estilo para cada residuo que cae */
 .waste-item {
     position: absolute;
-    width: 150px; /* Tamaño uniforme para sprites */
+    width: 120px; /* Tamaño uniforme para sprites */
     height: auto;
     animation: fall 3.5s linear forwards, rotate 4s linear infinite; /* Caída + rotación */
     z-index: 40;
