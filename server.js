@@ -15,6 +15,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "home.html"));
 });
 
+app.get("/instructions", (req, res) => {
+  res.sendFile(path.join(__dirname, "instructions.html"));
+});
+
 // Ruta /juego → index.html
 app.get("/juego", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
