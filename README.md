@@ -1,8 +1,14 @@
-# Ecoclasifica UdeA - Juego
+![Made with Node.js](https://img.shields.io/badge/Node.js-18.x-brightgreen)
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+
+# Ecoclasifica UdeA - Juego 🎮
 
 Bienvenido al juego Ecoclasifica UdeA, una aplicación interactiva diseñada para practicar la clasificación de residuos de forma educativa y divertida. Este proyecto está desarrollado como un juego en HTML, CSS y JavaScript, utilizando Bootstrap para el diseño responsive y animaciones personalizadas.
 
-## Descripción
+# Juega la demo aquí 👇
+https://ecoclasfica-udea.vercel.app/
+
+## Descripción 
 El juego simula un entorno donde el jugador debe clasificar residuos (orgánicos, reciclables y no reciclables) usando canecas específicas. El objetivo es llenar correctamente las canecas mientras se evitan errores, con retroalimentación visual y sonora.
 
 ## Características
