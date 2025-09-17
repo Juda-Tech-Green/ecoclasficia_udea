@@ -1,4 +1,4 @@
-![Made with Node.js](https://img.shields.io/badge/Node.js-20.x-brightgreen)
+![Made with Node.js](https://img.shields.io/badge/Node.js-20.xgit ad-brightgreen)
 ![Status](https://img.shields.io/badge/status-active-brightgreen)
 
 # Ecoclasifica UdeA - Juego 🎮
