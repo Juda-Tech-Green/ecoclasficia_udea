@@ -21,9 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Ancho del mundo
     let worldWidth = gameView.clientWidth;
 
-    // INPUT / VELOCIDAD
+    // INPUT / VELOCIDAD de movimiento
     const keys = { left: false, right: false };
-    const moveSpeed = 4;
+    const moveSpeed = 6;
 
     // FACING y offsets
     let facing = "right";
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         residuesLeft--;
         document.querySelector('.health_container h2').textContent = `Residuos faltantes: ${residuesLeft}`;
         if (residuesLeft === 0) {
-            setTimeout(() => showEndModal(), 4000);
+            setTimeout(() => showEndModal(), 6000); //Velocidad de finalización
         }
     }
 
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Inicia spawn cada 2.7s
-    spawnInterval = setInterval(spawnWaste, 2000);
+    spawnInterval = setInterval(spawnWaste, 5000); //Velocidad spawn residuos
 
     // Loop principal
     function loop() {

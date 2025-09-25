@@ -190,7 +190,7 @@
     position: absolute;
     width: 120px; /* Tamaño uniforme para sprites */
     height: auto;
-    animation: fall 3s linear forwards, rotate 4s linear infinite; /* Caída + rotación */
+    animation: fall 5s linear forwards, rotate 4s linear infinite; /* Caída + rotación */
     z-index: 40;
 }
 
