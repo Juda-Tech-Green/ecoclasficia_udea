@@ -33,7 +33,7 @@
         <div class="hud">
 
             <div class="health_container">
-                <h2>Residuos faltantes: 30</h2>
+                <h2>Residuos faltantes: 21</h2>
             </div>
 
             <a href="/" class=" button"><h4>Volver</h4></a>
@@ -97,9 +97,10 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <p id="end-message">Lograste clasificar el <span id="percentage">0</span>% de los residuos.</p>
-                    <button class="btn btn-success" onclick="location.reload()">Jugar de nuevo</button>
-                    <a href="/" class="btn btn-success">Volver</a>
+                    <div id="end-message" style="min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;"></div>
+                    <span id="percentage" style="display:none;"></span>
+                    <button class="btn btn-success mt-2" onclick="location.reload()">Jugar de nuevo</button>
+                    <a href="/" class="btn btn-success mt-2">Volver</a>
                 </div>
             </div>
         </div>

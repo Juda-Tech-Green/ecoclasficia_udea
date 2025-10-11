@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Solicitar pantalla completa al cargar la página
+    if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+    }
+
     const player = document.querySelector(".player");
     const playerImg = player.querySelector("img");
     const gameView = document.querySelector(".game_view");
@@ -83,11 +88,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para actualizar barra
     function updateBar(barSelector, increment, type) {
-        const bar = document.querySelector(barSelector);
-        if (!bar) return;
-        let height = parseFloat(bar.style.height) || 0;
-        height = Math.min(100, height + increment);
-        bar.style.height = `${height}%`;
+    const bar = document.querySelector(barSelector);
+    if (!bar) return;
+    // Ajuste: incremento dinámico según residuos por tipo
+    const residuosPorTipo = 7;
+    const incrementoBarra = 100 / residuosPorTipo;
+    let height = parseFloat(bar.style.height) || 0;
+    height = Math.min(100, height + incrementoBarra);
+    bar.style.height = `${height}%`;
         const category = barSelector.includes('organic') ? 'organicos' : barSelector.includes('reciclables') ? 'reciclables' : 'no_reciclables';
         const correctHeight = parseFloat(document.querySelector(categoryMap[category].correctBar).style.height || 0);
         const wrongHeight = parseFloat(document.querySelector(categoryMap[category].wrongBar).style.height || 0);
@@ -105,12 +113,12 @@ document.addEventListener("DOMContentLoaded", () => {
             rect1.top < rect2.bottom;
     }
 
-    // Generar lista única de 30 residuos
+    // Generar lista única de 21 residuos
     function generateWasteList() {
         const list = [];
         const categories = ['organicos', 'reciclables', 'no_reciclables'];
         categories.forEach(cat => {
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 1; i <= 7; i++) { // Numero de residuos a generar por categoría
                 list.push({ category: cat, pngNum: i });
             }
         });
@@ -125,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let activeWastes = [];
     const maxWastes = 5;
     let spawnInterval;
-    let residuesLeft = 30;
+    let residuesLeft = 21;
 
     // Creación del div fill-overlay
     const fillOverlay = document.createElement('div');
@@ -159,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const waste = document.createElement('img');
         waste.src = imgPath;
         waste.classList.add('waste-item');
-        waste.style.left = Math.random() * (gameView.clientWidth - 60) + 'px';
+        waste.style.left = Math.random() * (gameView.clientWidth - 110) + 'px'; // Ajustar ancho en el que aparecen los residuos
         waste.style.top = '-60px';
         waste.dataset.category = wasteItem.category;
         wasteContainer.appendChild(waste);
@@ -178,18 +186,131 @@ document.addEventListener("DOMContentLoaded", () => {
         const percentageElement = document.getElementById('percentage');
         if (modalLabel && endMessage && percentageElement) {
             modalLabel.textContent = message.includes("Demasiados") ? "¡Fin del Juego!" : "¡Fin del Juego!";
-            if (message.includes("Demasiados")) {
-                endMessage.textContent = "Demasiados residuos en el suelo.";
-                percentageElement.textContent = "0"; // Opcional: no muestra porcentaje
+                        if (message.includes("Demasiados")) {
+                                // Mostrar arquetipo Bufón
+                                const archetype = {
+                                        img: '/images/mascaras/bufon.png',
+                                        title: 'El Bufón  🎭😅',
+                                        msg: 'Vives el momento y te diviertes, pero no te tomas en serio las reglas. Aprendes desde el error y te motiva el mejorar para dejar de jugar con la basura.'
+                                };
+                                endMessage.innerHTML = `
+                                    <img src="${archetype.img}" alt="${archetype.title}" style="width:90px;height:90px;object-fit:contain;margin-bottom:10px;" />
+                                    <h4>${archetype.title}</h4>
+                                    <p>${archetype.msg}</p>
+                                `;
+                                percentageElement.textContent = "0";
+
+                                                // --- Envío de datos a SheetDB ---
+                                                // Se envía 0 en porcentaje y nivel Bufón
+                                                const now = new Date();
+                                                const utc5 = new Date(now.getTime() - (now.getTimezoneOffset() * 60000) - (5 * 60 * 60 * 1000));
+                                                const fechaHoraFinPartida = utc5.toISOString().replace('T', ' ').substring(0, 19);
+                                                const data = {
+                                                    fechaHoraFinPartida,
+                                                    correctosOrganico: 0,
+                                                    correctosReciclable: 0,
+                                                    correctosNoReciclable: 0,
+                                                    porcentajeFinal: 0,
+                                                    nivelAlcanzado: 'Bufón'
+                                                };
+                                                fetch("https://sheetdb.io/api/v1/t31vngmmjg48l", {
+                                                    method: "POST",
+                                                    body: JSON.stringify({ data }),
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                    },
+                                                })
+                                                    .then(res => console.log("✅ Datos enviados a SheetDB (fin por residuos en el suelo)"))
+                                                    .catch(err => console.error("❌ Error enviando datos a SheetDB:", err));
+                                                // --- Fin envío de datos a SheetDB ---
             } else {
+                // Contar residuos correctamente clasificados (cada barra correcta suma 1 por residuo)
                 let totalCorrect = 0;
+                let correctosOrganico = 0;
+                let correctosReciclable = 0;
+                let correctosNoReciclable = 0;
                 Object.keys(categoryMap).forEach(cat => {
-                    const greenHeight = parseFloat(document.querySelector(categoryMap[cat].correctBar).style.height || 0);
-                    totalCorrect += greenHeight;
+                    const bar = document.querySelector(categoryMap[cat].correctBar);
+                    const height = parseFloat(bar.style.height || 0);
+                    // Cada residuo suma (100/7)%
+                    const count = Math.round(height / (100/7));
+                    totalCorrect += count;
+                    if (cat === 'organicos') correctosOrganico = count;
+                    if (cat === 'reciclables') correctosReciclable = count;
+                    if (cat === 'no_reciclables') correctosNoReciclable = count;
                 });
-                const percentage = Math.round((totalCorrect / 300) * 100); // 300 = 100% * 3 categorías
-                endMessage.textContent = `Lograste clasificar el ${percentage}% de los residuos.`;
-                percentageElement.textContent = percentage;
+                const percentage = Math.round((totalCorrect / 21) * 100); // 21 residuos en total
+
+                // Definir arquetipo según porcentaje
+                let archetype = {};
+                let nivelAlcanzado = '';
+                if (percentage === 100) {
+                    archetype = {
+                        img: '/images/mascaras/sabio.png',
+                        title: 'El Sabio 📖💡',
+                        msg: 'Representas la búsqueda del conocimiento y la verdad. Quien clasifica todo perfecto es quien entiende profundamente cómo cuidar el ambiente.'
+                    };
+                    nivelAlcanzado = 'Sabio';
+                } else if (percentage >= 80) {
+                    archetype = {
+                        img: '/images/mascaras/heroe.png',
+                        title: 'El Héroe 🦸‍♂️🌍',
+                        msg: 'Luchas por una causa justa y vencer retos. Demuestras valentía y compromiso por proteger la naturaleza.'
+                    };
+                    nivelAlcanzado = 'Héroe';
+                } else if (percentage >= 60) {
+                    archetype = {
+                        img: '/images/mascaras/cuidador.png',
+                        title: 'El Cuidador 🤲💚',
+                        msg: 'Te preocupas por ayudar y proteger. No es perfecto, pero clasificas bien porque te importa el bienestar de tu comunidad y del planeta.'
+                    };
+                    nivelAlcanzado = 'Cuidador';
+                } else if (percentage >= 40) {
+                    archetype = {
+                        img: '/images/mascaras/inocente.png',
+                        title: 'El Inocente 🌱🙂',
+                        msg: 'Tienes buenas intenciones, pero te falta experiencia. Quieres hacer lo correcto, aunque todavía cometes errores en la separación de residuos.'
+                    };
+                    nivelAlcanzado = 'Inocente';
+                } else {
+                    archetype = {
+                        img: '/images/mascaras/bufon.png',
+                        title: 'El Bufón  🎭😅',
+                        msg: 'Vives el momento y te diviertes, pero no te tomas en serio las reglas. Aprendes desde el error y te motiva el mejorar para dejar de jugar con la basura.'
+                    };
+                    nivelAlcanzado = 'Bufón';
+                }
+
+                // Mostrar imagen y mensaje en el modal
+                endMessage.innerHTML = `
+                  <img src="${archetype.img}" alt="${archetype.title}" style="width:90px;height:90px;object-fit:contain;margin-bottom:10px;" />
+                  <h4>${archetype.title}</h4>
+                  <p>${archetype.msg}</p>
+                `;
+                percentageElement.textContent = '';
+
+                                                // --- Envío de datos a SheetDB ---
+                                                const now = new Date();
+                                                const utc5 = new Date(now.getTime() - (now.getTimezoneOffset() * 60000) - (5 * 60 * 60 * 1000));
+                                                const fechaHoraFinPartida = utc5.toISOString().replace('T', ' ').substring(0, 19);
+                                                const data = {
+                                                    fechaHoraFinPartida,
+                                                    correctosOrganico,
+                                                    correctosReciclable,
+                                                    correctosNoReciclable,
+                                                    porcentajeFinal: percentage,
+                                                    nivelAlcanzado
+                                                };
+                                                fetch("https://sheetdb.io/api/v1/t31vngmmjg48l", {
+                                                    method: "POST",
+                                                    body: JSON.stringify({ data }),
+                                                    headers: {
+                                                        "Content-Type": "application/json",
+                                                    },
+                                                })
+                                                    .then(res => console.log("✅ Datos enviados a SheetDB"))
+                                                    .catch(err => console.error("❌ Error enviando datos a SheetDB:", err));
+                                                // --- Fin envío de datos a SheetDB ---
             }
         } else {
             console.error("Uno o más elementos del modal no encontrados en el DOM");
@@ -199,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Inicia spawn cada 2.7s
-    spawnInterval = setInterval(spawnWaste, 5000); //Velocidad spawn residuos
+    spawnInterval = setInterval(spawnWaste, 2000); //Velocidad spawn residuos
 
     // Loop principal
     function loop() {
@@ -228,10 +349,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const increment = 10;
                 if (activeCategory === wasteCategory) {
                     updateBar(categoryMap[wasteCategory].correctBar, increment, 'correct');
+                    successSound.pause();
+                    successSound.currentTime = 0;
                     successSound.play().catch(e => console.log('Audio play failed:', e));
                     showEmojiFeedback('✅', 'correct');
                 } else {
                     updateBar(categoryMap[wasteCategory].wrongBar, increment, 'wrong');
+                    wrongSound.pause();
+                    wrongSound.currentTime = 0;
                     wrongSound.play().catch(e => console.log('Audio play failed:', e));
                     showEmojiFeedback('❌', 'wrong');
                 }

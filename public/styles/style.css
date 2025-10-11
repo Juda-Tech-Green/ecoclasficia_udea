@@ -1,3 +1,23 @@
+/* Estilos para el arquetipo en el modal de fin de juego */
+#end-message img {
+    display: block;
+    margin: 0 auto 10px auto;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    background: #fff;
+    padding: 6px;
+}
+#end-message h4 {
+    margin: 10px 0 5px 0;
+    font-size: 1.3rem;
+    color: #4c8444;
+    font-weight: bold;
+}
+#end-message p {
+    font-size: 1.05rem;
+    color: #333;
+    margin-bottom: 0;
+}
 /* Contenedor principal */
 .viewport {
     display: flex;
