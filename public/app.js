@@ -189,9 +189,9 @@ document.addEventListener("DOMContentLoaded", () => {
                         if (message.includes("Demasiados")) {
                                 // Mostrar arquetipo Bufón
                                 const archetype = {
-                                        img: '/images/mascaras/bufon.png',
-                                        title: 'El Bufón  🎭😅',
-                                        msg: 'Vives el momento y te diviertes, pero no te tomas en serio las reglas. Aprendes desde el error y te motiva el mejorar para dejar de jugar con la basura.'
+                                        img: '/images/mascaras/acritico.png',
+                                        title: 'El Desecho Acrítico',
+                                        msg: 'El Desecho Acrítico te ha envuelto en su niebla gris… pero aún puedes despertar. La magia empieza cuando decides mirar con atención.'
                                 };
                                 endMessage.innerHTML = `
                                     <img src="${archetype.img}" alt="${archetype.title}" style="width:90px;height:90px;object-fit:contain;margin-bottom:10px;" />
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
                                                     correctosReciclable: 0,
                                                     correctosNoReciclable: 0,
                                                     porcentajeFinal: 0,
-                                                    nivelAlcanzado: 'Bufón'
+                                                    nivelAlcanzado: 'El Desecho Acrítico'
                                                 };
                                                 fetch("https://sheetdb.io/api/v1/t31vngmmjg48l", {
                                                     method: "POST",
@@ -244,39 +244,39 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Definir arquetipo según porcentaje
                 let archetype = {};
                 let nivelAlcanzado = '';
-                if (percentage === 100) {
+                if (percentage >= 90) {
                     archetype = {
                         img: '/images/mascaras/sabio.png',
-                        title: 'El Sabio 📖💡',
-                        msg: 'Representas la búsqueda del conocimiento y la verdad. Quien clasifica todo perfecto es quien entiende profundamente cómo cuidar el ambiente.'
+                        title: 'Has despertado al Sabio 📖💡',
+                        msg: 'Comprendes el ciclo completo de la materia. Ya no separas por hábito, sino por conciencia. Tu magia es el equilibrio. '
                     };
                     nivelAlcanzado = 'Sabio';
                 } else if (percentage >= 80) {
                     archetype = {
                         img: '/images/mascaras/heroe.png',
-                        title: 'El Héroe 🦸‍♂️🌍',
-                        msg: 'Luchas por una causa justa y vencer retos. Demuestras valentía y compromiso por proteger la naturaleza.'
+                        title: 'Eres el Héroe 🦸‍♂️🌍',
+                        msg: 'Separas con precisión y compromiso. Tu fuerza está en la constancia, tu poder en inspirar a otros.'
                     };
                     nivelAlcanzado = 'Héroe';
                 } else if (percentage >= 60) {
                     archetype = {
                         img: '/images/mascaras/cuidador.png',
-                        title: 'El Cuidador 🤲💚',
-                        msg: 'Te preocupas por ayudar y proteger. No es perfecto, pero clasificas bien porque te importa el bienestar de tu comunidad y del planeta.'
+                        title: 'Has alcanzado el nivel del Cuidador 🤲💚',
+                        msg: 'Reconoces la vida en cada material y buscas su lugar. Tu magia es la empatía que repara vínculos. '
                     };
                     nivelAlcanzado = 'Cuidador';
-                } else if (percentage >= 40) {
+                } else if (percentage >= 30) {
                     archetype = {
                         img: '/images/mascaras/inocente.png',
-                        title: 'El Inocente 🌱🙂',
-                        msg: 'Tienes buenas intenciones, pero te falta experiencia. Quieres hacer lo correcto, aunque todavía cometes errores en la separación de residuos.'
+                        title: 'Eres el Inocente 🌱🙂',
+                        msg: 'Separas con curiosidad y esperanza. Cada intento te acerca a la ligereza de vivir con menos.'
                     };
                     nivelAlcanzado = 'Inocente';
                 } else {
                     archetype = {
                         img: '/images/mascaras/bufon.png',
-                        title: 'El Bufón  🎭😅',
-                        msg: 'Vives el momento y te diviertes, pero no te tomas en serio las reglas. Aprendes desde el error y te motiva el mejorar para dejar de jugar con la basura.'
+                        title: 'Has despertado al Bufón 🎭😅',
+                        msg: 'Ríes frente al caos y das el primer paso al darte cuenta. Tu magia comienza al decir no más al descuido.'
                     };
                     nivelAlcanzado = 'Bufón';
                 }
@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Inicia spawn cada 2.7s
-    spawnInterval = setInterval(spawnWaste, 2000); //Velocidad spawn residuos
+    spawnInterval = setInterval(spawnWaste, 2500); //Velocidad spawn residuos
 
     // Loop principal
     function loop() {
