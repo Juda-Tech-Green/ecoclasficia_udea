@@ -1,26 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Ecoclasifica UdeA</title>
-    <link rel="icon" href="/images/waste.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/styles/home_styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ecoclasifica UdeA</title>
+  <link rel="icon" href="/images/waste.ico">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/styles/home_styles.css">
 </head>
+
 <body class="bg-dark text-white d-flex flex-column justify-content-center align-items-center vh-100">
 
   <div class="card bg-dark text-white border-light shadow-lg" style="max-width: 700px;">
     <div class="card-body text-center">
       <h2 class="card-title mb-4">Instrucciones del Juego</h2>
-      <img src="/images/instructions.png" alt="Instrucciones del juego" class="img-fluid rounded shadow mb-4">
+
+      <!-- Imagen que cambiará -->
+      <img id="instructionImage" src="./images/instructions/1.png" alt="Instrucciones del juego" class="img-fluid rounded shadow mb-4">
+
+      <!-- Botones de navegación -->
+      <div class="d-flex justify-content-center gap-3 mb-3">
+        <button id="prevBtn" class="btn btn-outline-light btn-lg">⟵ Anterior</button>
+        <button id="nextBtn" class="btn btn-outline-light btn-lg">Siguiente ⟶</button>
+      </div>
+
+      <!-- Botones fijos -->
       <div class="d-flex justify-content-center gap-3">
         <a href="/juego" class="btn btn-success btn-lg">Iniciar juego</a>
         <a href="/" class="btn btn-outline-light btn-lg">Volver</a>
       </div>
     </div>
   </div>
+
+  <script>
+    // Lista de imágenes
+    const images = [
+      "./images/instructions/1.png",
+      "./images/instructions/2.png",
+      "./images/instructions/3.png",
+      "./images/instructions/4.png"
+    ];
+
+    let currentIndex = 0;
+    const img = document.getElementById("instructionImage");
+
+    // Botones
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    // Eventos
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      img.src = images[currentIndex];
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      img.src = images[currentIndex];
+    });
+  </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
