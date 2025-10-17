@@ -320,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Inicia spawn cada 2.7s
-    spawnInterval = setInterval(spawnWaste, 2500); //Velocidad spawn residuos
+    spawnInterval = setInterval(spawnWaste, 2850); //Velocidad spawn residuos
 
     // Loop principal
     function loop() {
